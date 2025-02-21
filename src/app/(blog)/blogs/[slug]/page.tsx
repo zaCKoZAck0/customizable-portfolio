@@ -28,10 +28,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const url = env.NEXT_PUBLIC_APP_URL;
 
-  const ogUrl = new URL(`${url}/api/og`);
+  const ogUrl = new URL(`${url}/api/blog/og`);
   ogUrl.searchParams.set('heading', post.title);
-  ogUrl.searchParams.set('type', 'Blog Post');
-  ogUrl.searchParams.set('mode', 'dark');
 
   return {
     title: post.title,
