@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
             fontWeight: 600,
           }}
         >
-          <div style={{ fontSize: 84, fontWeight: 700, fontFamily: 'Sora SemiBold' }}>
+          <div style={{ fontSize: 74, fontWeight: 700, fontFamily: 'Sora SemiBold' }}>
             {heading}
           </div>
           <div
