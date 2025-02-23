@@ -41,7 +41,7 @@ A fully customizable, professional portfolio website made with:
   - Auto generate slug for routing.
   - Callouts
 - (WIP) ai generated summary
-- (WIP) OpenGraph images.
+- OpenGraph images.
 - (WIP) SEO optimized.
 - (WIP) Custom components for Youtube, etc.
 - Intellegent blog search.
