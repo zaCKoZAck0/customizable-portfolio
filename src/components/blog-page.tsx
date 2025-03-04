@@ -47,6 +47,9 @@ export async function BlogPage({ blog, children }: BlogPageProps) {
             </H1>
             <div className="my-4">
               <p className="text-xs text-muted-foreground">
+                <span className="mr-4 text-green-300 font-mono italic hidden rounded-md bg-primary/15 px-2 py-0.5 md:inline">
+                  {"<Minis/>"}
+                </span>
                 <span className="mr-2">By</span>
                 <span className="text-secondary-foreground">{blog.author}</span>
                 <span className="mx-2">|</span>

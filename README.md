@@ -12,7 +12,6 @@ A fully customizable, professional portfolio website made with:
 
 ![image](https://github.com/user-attachments/assets/db4c25c8-8765-4d51-b1be-b00bc83b14fc)
 
-
 ## Features
 
 - **Fully customizable** with Contentlayer.
@@ -50,9 +49,7 @@ A fully customizable, professional portfolio website made with:
 
 ![image](https://github.com/user-attachments/assets/f0637e22-218c-45b5-b5a4-89ff6c17c769)
 
-
 ![image](https://github.com/user-attachments/assets/678b916c-02a3-4181-8494-5e4121c673c2)
-
 
 ## Routes
 
@@ -84,15 +81,17 @@ src/
 - `blogs/`: add blog and metadata for each blog
 
 #### Profile Schema (Required)
+
 ```mdx
 username: // Alias or first name
 fullName: // Full Name
 headline: // A headline for website description
 blogHeadline: // Headline for blog footer, can be same as headline
 links: // Array of links
-  - platform: // platform name
-    url: // your profile url
-    alias: // username (visible as link text)
+
+- platform: // platform name
+  url: // your profile url
+  alias: // username (visible as link text)
 
 formalImage: // your professional headshot
 profileImage: // a casual photograph for blog
@@ -120,7 +119,7 @@ pnpm build:content
 pnpm dev
 ```
 
-Deploy on Vercel: 
+Deploy on Vercel:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FzaCKoZAck0%2Fcustomizable-portfolio&project-name=my-portfolio&repository-name=my-portfolio&demo-title=My%20Portfolio&demo-description=Portfolio%20and%20Blog%20website%20made%20with%20Next.js&demo-url=https%3A%2F%2Fzackozack.xyz)
 

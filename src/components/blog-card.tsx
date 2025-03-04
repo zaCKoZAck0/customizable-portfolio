@@ -31,6 +31,8 @@ export const BlogCard = motion(
       [blog.publishedAt, blog.updatedAt],
     );
 
+    const isMinis = blog.minis;
+
     const DateBadge = ({ label, gradient }: { label: string; gradient: string }) => (
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -88,6 +90,21 @@ export const BlogCard = motion(
 
             <div className="mt-4 flex items-center justify-between gap-4">
               <div className="flex gap-2">
+                {isMinis && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={SPRING_TRANSITION}
+                  >
+                    <Badge
+                      className={`bg-gradient-to-br from-green-200 to-green-400 bg-clip-text p-0.5 text-transparent`}
+                    >
+                      <span className="py-0.5 font-mono text-sm font-semibold italic">
+                        {'<Minis/>'}
+                      </span>
+                    </Badge>
+                  </motion.div>
+                )}
                 {isNew && <DateBadge label="New" gradient="from-green-300 to-blue-400" />}
                 {isUpdated && <DateBadge label="Updated" gradient="from-purple-300 to-pink-400" />}
               </div>

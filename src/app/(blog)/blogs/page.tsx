@@ -35,15 +35,27 @@ export default function BlogPage() {
             My blogs mostly have content around tools and technologies, tutorials, book /
             research-paper summaries, etc.
           </p>
+          <p className="mb-4 w-full rounded-lg border-2 border-green-300/50 bg-gradient-to-b from-green-900/10 from-50% to-green-300/25 p-4 text-justify text-green-300 shadow-2xl shadow-green-300/25 hover:shadow-2xl hover:shadow-green-300/25">
+            <span className="block text-xl font-semibold">
+              Introducing <span className="font-mono italic">{'<Minis/>'}</span>
+            </span>
+            <span className="mt-2 block text-secondary-foreground">
+              Sharing Byte-sized knowledge everyday for people on the go.
+            </span>
+          </p>
           <div className="flex items-center justify-end gap-2 py-2">
             <a href="https://x.com/zaCKoZAck0">
-              <Button size="sm" variant="secondary" className="rounded-full">
+              <Button size="sm" variant="secondary" className="border border-gray-500">
                 <H4 className="mr-2 text-sm font-normal">@zaCKoZAck0</H4>
                 <FaXTwitter size={14} />
               </Button>
             </a>
             <Link href="/">
-              <Button size="sm" variant="secondary" className="rounded-full">
+              <Button
+                size="sm"
+                variant="secondary"
+                className="bg-gradient-to-br from-blue-400 to-purple-400 text-background"
+              >
                 <H4 className="mr-2 text-sm font-normal">Portfolio</H4>
                 <FaUser size={12} />
               </Button>
@@ -62,7 +74,7 @@ export default function BlogPage() {
           {Object.keys(groupedBlogs).map((year) => (
             <div key={year}>
               <H4 className="pb-4 pt-8 text-lg text-secondary-foreground">{year}</H4>
-              <table>
+              <table className='table-fixed'>
                 <tbody>
                   {groupedBlogs[year].map((slug) => {
                     const blog = blogs.find((it) => it.slugAsParams === slug);
@@ -82,6 +94,7 @@ export default function BlogPage() {
                           <td>
                             <H4 className="from-blue-400 to-purple-400 bg-clip-text pl-3 text-base font-semibold text-secondary-foreground group-hover:bg-gradient-to-br group-hover:text-transparent">
                               {blog.title}
+                              {blog.minis && <span title="minis" className='text-green-300 font-normal px-2 italic font-mono'>{"<Minis/>"}</span>}
                             </H4>
                           </td>
                         </tr>

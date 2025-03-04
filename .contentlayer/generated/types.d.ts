@@ -18,6 +18,7 @@ export type Doc = {
   published: boolean
   author: string
   featured: boolean
+  minis: boolean
   publishedAt: IsoDateTimeString
   updatedAt: IsoDateTimeString
   tags: string[]

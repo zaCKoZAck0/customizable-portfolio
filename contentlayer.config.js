@@ -154,6 +154,10 @@ export const Doc = defineDocumentType(() => ({
       type: 'boolean',
       default: false,
     },
+    minis: {
+      type: 'boolean',
+      default: false,
+    },
     publishedAt: {
       type: 'date',
       required: true,
