@@ -74,7 +74,7 @@ export default function BlogPage() {
           {Object.keys(groupedBlogs).map((year) => (
             <div key={year}>
               <H4 className="pb-4 pt-8 text-lg text-secondary-foreground">{year}</H4>
-              <table className='table-fixed'>
+              <table className="table-fixed">
                 <tbody>
                   {groupedBlogs[year].map((slug) => {
                     const blog = blogs.find((it) => it.slugAsParams === slug);
@@ -94,7 +94,14 @@ export default function BlogPage() {
                           <td>
                             <H4 className="from-blue-400 to-purple-400 bg-clip-text pl-3 text-base font-semibold text-secondary-foreground group-hover:bg-gradient-to-br group-hover:text-transparent">
                               {blog.title}
-                              {blog.minis && <span title="minis" className='text-green-300 font-normal px-2 italic font-mono'>{"<Minis/>"}</span>}
+                              {blog.minis && (
+                                <span
+                                  title="minis"
+                                  className="px-2 font-mono font-normal italic text-green-300"
+                                >
+                                  {'<Minis/>'}
+                                </span>
+                              )}
                             </H4>
                           </td>
                         </tr>
