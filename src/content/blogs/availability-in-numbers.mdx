@@ -1,0 +1,90 @@
+---
+title: Availability in Numbers
+description: A quick guide that walks you through availabilty, and how to put it in numbers for your application.
+publishedAt: '2025-03-03'
+updatedAt: '2025-03-03'
+featured: false
+published: true
+minis: false
+author: zackozack
+tags:
+  - system-design
+  - distributed-systems
+  - minis
+---
+
+## What is availabilty?
+Availabilty of an application refers to the percentage of the time application provides operations expected from it, and is accessible to all the users.
+
+### Measuring Availability
+- Availability is measured as percentage of uptime over a given period, usually a month or a year.
+- The formulae is typically `Availability = (Total Service Time - Downtime) / (Total Service Time)`
+- The value is expected to be extremely close to `100%` i.e. `99%+`, the higher the better..
+
+## 9s of Availability
+Availability is generally represented as the **numbers of 9s** in the _fractional_ plus _integer_ part of the availabilty (eg. a service with `99.99%` availability is described as having _four 9s_).
+<br/>
+The availabilty percentage value is usually very high `99%+` , as any value lesser than that will lead to very significant downtime for the applications.
+<br />
+Here's a representation of how much different availability percentages equals to actual downtime per year.
+<br />
+**99.9% availability - three 9s**
+
+| Duration           | Acceptable downtime |
+| ------------------ | ------------------- |
+| Downtime per year  | 8h 45min 57s        |
+| Downtime per month | 43m 49.7s           |
+| Downtime per week  | 10m 4.8s            |
+| Downtime per day   | 1m 26.4s            |
+
+**99.99% availability - four / quad 9s**
+
+| Duration           | Acceptable downtime |
+| ------------------ | ------------------- |
+| Downtime per year  | 52min 35.7s         |
+| Downtime per month | 4m 23s              |
+| Downtime per week  | 1m 5s               |
+| Downtime per day   | 8.6s                |
+
+## Availability of connected components
+When multiple components are connected together the availability of the system starts to depend on the components that it's made of.
+<br/>
+In your application's architecture, you have a couple of ways to connect components together.
+
+### 1. Components connected in Sequence
+When components are connected in a sequence, the functioning of a component directly depends on response or data of other components.
+<br />
+e.g. Consider a normal 3 tier application, consisting of only 3 servers (frontend, backend and database) where functioning of the application / frontend depends on the response from the backend server and the response from the backend server depends upon the response from the database.
+<br />
+i.e. in this case, _if the database is down it will make the whole application unresponsive._
+<br/>
+Overall **availability of the system decreases** when two components with _availability < 100%_ are in sequence.
+<br/>
+`Availability (Total) = Availability (Foo) * Availability (Bar)`
+<br/>
+This multiplication occurs because the _probabilities of all components being available must be combined_.
+<br/>
+e.g. If `Foo` crashes for 3 times a day, and `Bar` crashes 4 times a day. Your whole system will be unavailable for `3*4 = 12` times a day.
+The system becomes unavailable if either of the `Foo` or `Bar` are down, thus decreasing the availability even more.
+<br/>
+If both `Foo` and `Bar` each had `99.9%` availability, their total availability in sequence would be `99.8%`.
+
+### 2. Components connected in Parallel
+When components are connected in parallel, the application depends on multiple copies of each component, rather than a single component, thus _removing the direct dependecy between the components._
+<br/>
+e.g. Consider the same 3 tier application as before, but there exists a copy of each server in a different <a target="blank" href="https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-availability-zones.html">AZs</a>.
+<br/>
+i.e. in this case, _if the database is down, the application will failover to the database hosted in the other AZ_, the application will be unresponsive only if databases are down in both AZs. 
+<br/>
+Overall **availability increases** when two components with availability < 100% are in parallel.
+<br/>
+`Availability (Total) = 1 - (1 - Availability (Foo)) * (1 - Availability (Bar))`
+<br/>
+Here, the formulae is different because this _formula calculates the probability that not all components will fail simultaneously_. i.e The system's is only unavailable if either system is down, thus making the availability even more than either `foo` or `bar`.
+<br/>
+If both `Foo` and `Bar` each had `99.9%` availability, their total availability in parallel would be `99.9999%`.
+
+## Conclusion
+If you want to make your application more available, you can introduce redundency in your architecture. 
+
+Calculating availability beforehand helps you efficitvely communicate availability with your team and helps business commit to realistic <a href="https://www.servicenow.com/products/itsm/what-is-sla.html">SLAs</a>.
