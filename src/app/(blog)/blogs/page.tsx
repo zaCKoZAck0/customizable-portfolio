@@ -84,10 +84,10 @@ export default function BlogPage() {
                       <Link key={slug} href={`/blogs/${slug}`}>
                         <tr key={blog.title} className="group flex items-center pt-4">
                           <td className="flex-shrink-0">
-                            <H4 className="pr-3 text-left text-sm font-normal">
+                            <H4 className="w-14 text-left text-sm font-normal">
                               {createdDate.toLocaleDateString('en-US', {
                                 month: 'short',
-                                day: 'numeric',
+                                day: '2-digit',
                               })}
                             </H4>
                           </td>
