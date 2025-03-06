@@ -33,15 +33,15 @@ export function Introduction() {
               <div>
                 <FadeUpStagger
                   text={profile.fullName}
-                  className="text-2xl font-semibold leading-8 md:text-4xl"
+                  className="text-3xl font-semibold leading-8 md:text-4xl"
                 />
                 <FadeUpStagger
                   text={profile.username}
-                  className="text-2xl font-thin leading-8 md:text-4xl"
+                  className="text-3xl font-thin leading-8 md:text-4xl"
                 />
               </div>
 
-              <div className="flex flex-col gap-4 pt-8 text-sm font-normal italic text-muted-foreground md:text-lg">
+              <div className="flex flex-col gap-4 pt-8 text-base font-normal italic text-muted-foreground md:text-lg">
                 {profile.links?.map((link, index) => (
                   <ProfileLink key={link._id} link={link} index={index} />
                 ))}
