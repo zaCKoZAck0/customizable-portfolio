@@ -1,0 +1,81 @@
+---
+title: Grind 75 - All problems solved in TypeScript (Wip)
+description: Solutions to all the problems in Grind 75 list, solved in TypeScript. (In Progress 1/169) 
+publishedAt: '2025-02-01'
+updatedAt: '2025-03-08'
+featured: false
+published: true
+minis: false
+author: zackozack
+prompt: generate min possible general logic flow in md, "" 
+tags:
+  - typescript
+  - data-structures
+  - algorithms
+  - problem-solving
+  - grind-75
+---
+## All Problems
+
+All the problems in the [Grind 75](https://www.techinterviewhandbook.org/grind75/?weeks=18&hours=9&order=topics) list solved in TypeScript.
+
+| LC #  | Problem | Difficulty | Topic |
+| ----- | ------- | ---------- | ----- |
+| 1     | [Two Sum](#two-sum) | *Easy* | Array |
+| 121   | [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock) | *Easy* | Array |
+| 57    | [Insert Interval](#insert-interval) | *Medium* | Array |
+
+## [Two Sum](https://leetcode.com/problems/two-sum/)
+**Problem Statement**: 
+Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
+
+You may assume that each input would have **exactly one solution**, and you may not use the same element twice.
+
+You can return the answer in any order.
+<br/>
+**Code**:
+```typescript
+function twoSum(nums: number[], target: number): number[] {
+    const map = new Map<number, number>();
+    for(let i=0; i<nums.length; i++){
+        const reqd = target - nums[i];
+        if(map.has(reqd)){
+           return [map.get(reqd), i]; 
+        } map.set(nums[i], i);
+    }
+    return new Array<number>();
+};
+```
+
+**Time Complexity:** `O(n)` - We traverse the list containing `n` elements. 
+
+**Space Complexity:** `O(n)` - We store the indices of all the elements in a map.
+
+## [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+**Problem Statement**:
+You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day.
+
+You want to maximize your profit by choosing a **single day** to buy one stock and choosing **a different day in the future** to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.
+<br/>
+**Code**:
+```typescript
+function maxProfit(prices: number[]): number {
+    let buyIndex = 0;
+    let maxProfit = 0;
+    for(let i=1; i<prices.length; i++){
+        if(prices[i] < prices[buyIndex]){
+            buyIndex = i;
+        } else if(prices[i] > prices[buyIndex]){
+            const currentProfit = prices[i] - prices[buyIndex];
+            maxProfit = Math.max(currentProfit, maxProfit);
+        }
+    }
+    return maxProfit;
+};
+```
+**Time Complexity:** `O(n)` - We traverse through the array containing `n` elements.
+
+**Space Complexity:** `O(1)` - We are using only a constant amount of space, as we only store a few variables regardless of the input size.
+

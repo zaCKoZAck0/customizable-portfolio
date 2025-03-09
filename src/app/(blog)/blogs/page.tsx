@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const blogs = allDocs.filter((docs) => docs.published);
+  const blogs = allDocs.filter((docs) => docs.published).sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
   const groupedBlogs = blogs.reduce(
     (acc, blog) => {
       const year = new Date(blog.publishedAt).getFullYear();
@@ -65,6 +65,7 @@ export default function BlogPage() {
         <div className="mt-32">
           <div className="flex flex-col justify-center gap-4">
             {blogs.map((blog) => {
+              if(!blog.featured) return null;
               return <BlogCard key={blog._id} blog={blog} />;
             })}
           </div>
