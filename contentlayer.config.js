@@ -154,6 +154,12 @@ export const Doc = defineDocumentType(() => ({
       type: 'boolean',
       default: false,
     },
+    tldr: {
+      type: 'string',
+    },
+    podcastUrl: {
+      type: 'string',
+    },
     minis: {
       type: 'boolean',
       default: false,
