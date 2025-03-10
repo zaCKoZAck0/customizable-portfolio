@@ -11,6 +11,8 @@ tags:
   - nextjs
   - server-actions
   - nextjs-server-actions
+tldr: 'Server Actions in Next.js provide a streamlined way to execute server-side logic directly from React components. These actions function as remote procedure calls (RPC) using HTTP POST requests, eliminating the need for separate API routes. When a server action is created, Next.js registers the function on the server and generates a client-side proxy. Invoking the proxy triggers a POST request containing serialized arguments, which the server processes and returns a serialized output. This entire process provides automatic CSRF protection and integrates with Next.js caching mechanisms. The author recommends using Zod to validate server action inputs, in addition to Typescript.'
+podcastUrl: '/audio/server-actions-under-the-hood.wav'
 ---
 
 ## What is a Server Action?
