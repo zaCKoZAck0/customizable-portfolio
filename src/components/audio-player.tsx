@@ -83,7 +83,6 @@ export function AudioPlayer({ src }: { src: string }) {
     setCurrentTime(newTime);
   };
 
-  // Format time in MM:SS
   const formatTime = (time: number) => {
     if (isNaN(time)) return '00:00';
 
@@ -94,7 +93,7 @@ export function AudioPlayer({ src }: { src: string }) {
 
   return (
     <div className="mx-auto my-4 max-w-md rounded-lg border p-4 shadow-sm">
-      <audio ref={audioRef} src={src} preload="none" />
+      <audio ref={audioRef} src={src} preload="auto" />
 
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-base font-medium md:text-lg">Listen as Podcast</h2>
