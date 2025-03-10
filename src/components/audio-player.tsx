@@ -7,17 +7,29 @@ import {
   Play,
   Pause,
   SparklesIcon,
+  Loader2,
 } from 'lucide-react';
 
 export function AudioPlayer({ src }: { src: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    setIsLoading(true);
+    
+    const handleLoadStart = () => {
+      setIsLoading(true);
+    };
+
+    const handleCanPlayThrough = () => {
+      setIsLoading(false);
+    };
 
     const setAudioData = () => {
       setDuration(audio.duration);
@@ -25,28 +37,39 @@ export function AudioPlayer({ src }: { src: string }) {
     };
 
     const setAudioTime = () => setCurrentTime(audio.currentTime);
+    
+    const handleError = () => {
+      setIsLoading(false);
+    };
 
-    // Set up event listeners
+    audio.addEventListener('loadstart', handleLoadStart);
     audio.addEventListener('loadeddata', setAudioData);
+    audio.addEventListener('canplaythrough', handleCanPlayThrough);
     audio.addEventListener('timeupdate', setAudioTime);
     audio.addEventListener('ended', () => setIsPlaying(false));
+    audio.addEventListener('error', handleError);
 
-    // Clean up event listeners
     return () => {
+      audio.removeEventListener('loadstart', handleLoadStart);
       audio.removeEventListener('loadeddata', setAudioData);
+      audio.removeEventListener('canplaythrough', handleCanPlayThrough);
       audio.removeEventListener('timeupdate', setAudioTime);
       audio.removeEventListener('ended', () => setIsPlaying(false));
+      audio.removeEventListener('error', handleError);
     };
-  }, []);
+  }, [src]);
 
   const togglePlayPause = () => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || isLoading) return;
 
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play();
+      audio.play().catch(() => {
+        setIsLoading(false);
+        setIsPlaying(false);
+      });
     }
     setIsPlaying(!isPlaying);
   };
@@ -71,10 +94,8 @@ export function AudioPlayer({ src }: { src: string }) {
 
   return (
     <div className="mx-auto my-4 max-w-md rounded-lg border p-4 shadow-sm">
-      {/* Audio element (hidden) */}
       <audio ref={audioRef} src={src} preload="none" />
 
-      {/* Header with title and actions */}
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-base font-medium md:text-lg">Listen as Podcast</h2>
         <div className="flex items-center gap-2 text-xs text-secondary-foreground/50">
@@ -83,21 +104,21 @@ export function AudioPlayer({ src }: { src: string }) {
         </div>
       </div>
 
-      {/* Player controls */}
       <div className="flex items-center space-x-4">
-        {/* Play/Pause button */}
         <Button
           onClick={togglePlayPause}
           className="flex h-12 w-12 items-center justify-center rounded-full bg-primary p-0 hover:bg-primary/75"
+          disabled={isLoading}
         >
-          {isPlaying ? (
+          {isLoading ? (
+            <Loader2 className="h-6 w-6 text-primary-foreground animate-spin" />
+          ) : isPlaying ? (
             <Pause className="h-6 w-6 text-primary-foreground" />
           ) : (
             <Play className="ml-0.5 h-6 w-6 text-primary-foreground" />
           )}
         </Button>
 
-        {/* Progress bar and time */}
         <div className="flex-1">
           <Slider
             value={[currentTime]}
@@ -105,6 +126,7 @@ export function AudioPlayer({ src }: { src: string }) {
             step={0.1}
             onValueChange={handleSliderChange}
             className="mb-2"
+            disabled={isLoading}
           />
           <div className="text-sm text-muted-foreground">
             {formatTime(currentTime)} / {formatTime(duration)}
