@@ -18,6 +18,8 @@ export type Doc = {
   published: boolean
   author: string
   featured: boolean
+  tldr?: string | undefined
+  podcastUrl?: string | undefined
   minis: boolean
   publishedAt: IsoDateTimeString
   updatedAt: IsoDateTimeString

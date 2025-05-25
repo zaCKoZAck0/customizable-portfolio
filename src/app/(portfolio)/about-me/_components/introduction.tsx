@@ -2,9 +2,9 @@
 import { ImageCarousel } from '~/components/image-carousel';
 import { allProfiles } from 'contentlayer/generated';
 import { FadeUpStagger } from '~/components/typography/animated/fade-up';
-import { ProfileLink } from '~/components/profile-link';
 import { LocationAndTime } from './location-and-time';
 import { WorkExperience } from './work-experience';
+import { DiscordStatus } from '~/components/discord-status';
 
 export function Introduction() {
   const profile = allProfiles[0];
@@ -41,10 +41,8 @@ export function Introduction() {
                 />
               </div>
 
-              <div className="flex flex-col gap-4 pt-8 text-base font-normal italic text-muted-foreground md:text-lg">
-                {profile.links?.map((link, index) => (
-                  <ProfileLink key={link._id} link={link} index={index} />
-                ))}
+              <div className="flex flex-col pt-8">
+                <DiscordStatus />
               </div>
               <LocationAndTime />
             </div>
