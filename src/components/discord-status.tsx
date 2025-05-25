@@ -86,33 +86,30 @@ export const DiscordStatus: FC = () => {
 };
 
 function ProfileCard({user, status, activity}: {user: DiscordUser, status: Status, activity: Activity | undefined}){
-    return <div className='flex relative overflow-hidden flex-col text-sm space-y-2 bg-muted text-muted-foreground p-2 px-4 rounded-lg border-2 font-normal'>
-        <div className="flex gap-4 overflow-hidden z-10 py-2">
+    return <div className='flex relative overflow-hidden flex-col text-sm bg-muted text-muted-foreground py-2 px-3 rounded-lg border-2 font-normal'>
+        <div className="flex gap-4 overflow-hidden z-10">
             <div className="relative">
-                <img className="size-20 rounded-full" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} alt='pfp' />
+                <img className="size-16 rounded-full" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} alt='pfp' />
                 <StatusIcon status={status} />
             </div>
-            <div className="space-y-1">
+            <div className="">
                 <h3 className={cn(sora.className, "flex gap-2 items-center font-normal text-xl truncate overflow-hidden w-full text-primary")}>
-                    {/* {spotify.song.slice(0, 20)}{spotify.song.length > 20 && '...'} */}
                     {user.global_name}
                     <FaDiscord />
                 </h3>
-                {activity && <h4 className="flex items-center gap-0.5 truncate overflow-hidden w-full">
-                    <img className="size-6" src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.large_image}.png`} />
-                    {activity.assets?.large_text}
+                {activity && <h4 className="flex text-xs items-center gap-0.5 truncate overflow-hidden w-full">
+                    {
+                      activity.assets?.large_image && <img className="size-6" src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.large_image}.png`} />}
+                    {activity.assets?.large_text || `Playing '${activity.name}'`}
                 </h4>}
-                {activity && <h4 className="flex items-center gap-0.5 truncate overflow-hidden w-full">
-                    <img className="size-6" src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.small_image}.png`} />
-                    {activity.assets?.small_text}
+                {activity && <h4 className="flex text-xs items-center gap-0.5 truncate overflow-hidden w-full">
+                    {activity.assets?.small_image && <img className="size-6" src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.small_image}.png`} />}
+                    {activity.assets?.small_text || activity.details}
                 </h4>}
                 {
-                    !activity && <><h3 className={cn(sora.className, "font-normal text-xl truncate w-full text-muted-foreground/50")}>
+                    !activity && <><h3 className={cn(sora.className, "font-normal mt-1 truncate w-full text-muted-foreground/50")}>
                     Napping on the Job
                 </h3>
-                <p>
-                    zzzz...
-                </p>
                 </>
                 }
         </div>
@@ -121,12 +118,12 @@ function ProfileCard({user, status, activity}: {user: DiscordUser, status: Statu
 }
 
 function SongCard({spotify}:{ spotify: Spotify}){
-    return <a target="_blank" rel="noreferrer" href={`https://open.spotify.com/track/${spotify.track_id}`} className='flex relative overflow-hidden flex-col text-sm space-y-2 bg-muted text-muted-foreground p-2 px-4 rounded-lg border-2 font-normal'>
+    return <a target="_blank" rel="noreferrer" href={`https://open.spotify.com/track/${spotify.track_id}`} className='flex relative overflow-hidden flex-col text-sm bg-muted text-muted-foreground py-2 px-3 rounded-lg border-2 font-normal'>
         <img className="size-full absolute blur-2xl opacity-25" src={spotify.album_art_url} alt={spotify.song} />
-        <div className="flex justify-end z-10">
-            <p className="flex items-center justify-between w-full">Listening to Spotify <FaSpotify className="text-[#1DB954]" size={16} /></p>
+        <div className="flex justify-end z-10 relative">
+            <FaSpotify className="text-[#1DB954] size-5 absolute right-0 top-0" />
         </div>
-        <div className="flex gap-3 overflow-hidden z-10 py-2">
+        <div className="flex gap-3 overflow-hidden z-10 py-1">
             <img className="size-14 border-2 border-muted-foreground rounded-md" src={spotify.album_art_url} alt={spotify.song} />
             <div className="space-y-1">
                 <h3 className={cn(sora.className, "font-normal text-xl truncate overflow-hidden w-full text-primary")}>
