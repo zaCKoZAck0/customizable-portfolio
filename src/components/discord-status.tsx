@@ -121,7 +121,7 @@ function ProfileCard({user, status, activity}: {user: DiscordUser, status: Statu
 }
 
 function SongCard({spotify}:{ spotify: Spotify}){
-    return <a target="_blank" href={`https://open.spotify.com/track/${spotify.track_id}`} className='flex relative overflow-hidden flex-col text-sm space-y-2 bg-muted text-muted-foreground p-2 px-4 rounded-lg border-2 font-normal'>
+    return <a target="_blank" rel="noreferrer" href={`https://open.spotify.com/track/${spotify.track_id}`} className='flex relative overflow-hidden flex-col text-sm space-y-2 bg-muted text-muted-foreground p-2 px-4 rounded-lg border-2 font-normal'>
         <img className="size-full absolute blur-2xl opacity-25" src={spotify.album_art_url} alt={spotify.song} />
         <div className="flex justify-end z-10">
             <p className="flex items-center justify-between w-full">Listening to Spotify <FaSpotify className="text-[#1DB954]" size={16} /></p>
