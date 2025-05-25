@@ -6,6 +6,7 @@ import { FaCircle, FaCircleMinus, FaDiscord, FaMoon, FaSpotify } from "react-ico
 import { cn } from "~/lib/utils";
 import { Sora } from 'next/font/google';
 import { motion, AnimatePresence } from "framer-motion"; 
+import { Skeleton } from "~/components/ui/skeleton";
 
 const sora = Sora({ subsets: ['latin'] });
 
@@ -16,6 +17,25 @@ interface StatusIconProps {
   size?: number;
 }
 
+const DiscordStatusSkeleton = () => (
+  <div className="flex relative overflow-hidden flex-col text-sm space-y-2 bg-muted text-muted-foreground p-2 px-4 rounded-lg border-2 font-normal">
+    <div className="flex gap-4 overflow-hidden z-10 py-2">
+      <div className="relative">
+        <Skeleton className="size-20 rounded-full" />
+        <span className="absolute right-2 bottom-2 bg-background border border-2 border-secondary-foreground/25 rounded-full translate-x-[50%] translate-y-[50%]">
+          <Skeleton className="w-4 h-4 rounded-full" />
+        </span>
+      </div>
+      <div className="space-y-1 w-full">
+        <Skeleton className="h-6 w-1/2" />
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-4 w-2/3" />
+      </div>
+    </div>
+  </div>
+);
+
 export const DiscordStatus: FC = () => {
   const { loading, status } = useLanyard({
     userId: "698195326766415872",
@@ -25,7 +45,17 @@ export const DiscordStatus: FC = () => {
   return (
     <div className="w-full">
       <AnimatePresence mode="wait">
-        {status && status.spotify ? (
+        {loading ? (
+          <motion.div
+            key="skeleton"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <DiscordStatusSkeleton />
+          </motion.div>
+        ) : status && status.spotify ? (
           <motion.div
             key="song"
             initial={{ opacity: 0, y: 10 }}
