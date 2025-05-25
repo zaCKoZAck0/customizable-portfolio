@@ -18,7 +18,7 @@ interface StatusIconProps {
 }
 
 const DiscordStatusSkeleton = () => (
-  <div className="flex relative overflow-hidden flex-col text-sm space-y-2 bg-muted text-muted-foreground p-2 px-4 rounded-lg border-2 font-normal">
+  <div className="flex relative overflow-hidden flex-col text-sm space-y-2  p-2 px-4 rounded-lg border-2 font-normal">
     <div className="flex gap-4 overflow-hidden z-10 py-2">
       <div className="relative">
         <Skeleton className="size-20 rounded-full" />
