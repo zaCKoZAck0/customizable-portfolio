@@ -21,16 +21,14 @@ const DiscordStatusSkeleton = () => (
   <div className="flex relative overflow-hidden flex-col text-sm space-y-2  p-2 px-4 rounded-lg border-2 font-normal">
     <div className="flex gap-4 overflow-hidden z-10 py-2">
       <div className="relative">
-        <Skeleton className="size-20 rounded-full" />
-        <span className="absolute right-2 bottom-2 bg-background border border-2 border-secondary-foreground/25 rounded-full translate-x-[50%] translate-y-[50%]">
+        <Skeleton className="size-16 rounded-full" />
+        <span className="absolute right-2 bottom-2 bg-background border-2 border-secondary-foreground/25 rounded-full translate-x-[50%] translate-y-[50%]">
           <Skeleton className="w-4 h-4 rounded-full" />
         </span>
       </div>
       <div className="space-y-1 w-full">
         <Skeleton className="h-6 w-1/2" />
         <Skeleton className="h-4 w-3/4" />
-        <Skeleton className="h-4 w-1/2" />
-        <Skeleton className="h-4 w-2/3" />
       </div>
     </div>
   </div>
@@ -93,18 +91,15 @@ function ProfileCard({user, status, activity}: {user: DiscordUser, status: Statu
                 <StatusIcon status={status} />
             </div>
             <div className="">
-                <h3 className={cn(sora.className, "flex gap-2 items-center font-normal text-xl truncate overflow-hidden w-full text-primary")}>
-                    {user.global_name}
-                    <FaDiscord />
+                <h3 className={cn(sora.className, "flex gap-2 items-center font-normal text-xl truncate overflow-hidden w-full")}>
+                    {user.global_name}&apos;s
+                    <FaDiscord className="text-[#5865F2]" />
+                    Status
                 </h3>
                 {activity && <h4 className="flex text-xs items-center gap-0.5 truncate overflow-hidden w-full">
                     {
-                      activity.assets?.large_image && <img className="size-6" src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.large_image}.png`} />}
+                      activity.assets?.large_image && <img className="size-6" src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.large_image}.png`} alt={activity.name} />}
                     {activity.assets?.large_text || `Playing '${activity.name}'`}
-                </h4>}
-                {activity && <h4 className="flex text-xs items-center gap-0.5 truncate overflow-hidden w-full">
-                    {activity.assets?.small_image && <img className="size-6" src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.small_image}.png`} />}
-                    {activity.assets?.small_text || activity.details}
                 </h4>}
                 {
                     !activity && <><h3 className={cn(sora.className, "font-normal mt-1 truncate w-full text-muted-foreground/50")}>
@@ -140,19 +135,19 @@ function SongCard({spotify}:{ spotify: Spotify}){
 
 const statusConfig: Record<Status, { icon: JSX.Element; color: string }> = {
   online: {
-    icon: <FaCircle />,
+    icon: <FaCircle title="Online" />,
     color: '#43b581', // Online - green
   },
   idle: {
-    icon: <FaMoon />,
+    icon: <FaMoon title="Idle" />,
     color: '#faa61a', // Idle - yellow
   },
   dnd: {
-    icon: <FaCircleMinus />,
+    icon: <FaCircleMinus title="Do Not Disturb" />,
     color: '#f04747', // Do Not Disturb - red
   },
   offline: {
-    icon: <FaCircle />,
+    icon: <FaCircle title="Offline" />,
     color: '#747f8d', // Offline - gray
   },
 };
