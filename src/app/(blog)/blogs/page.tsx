@@ -37,14 +37,6 @@ export default function BlogPage() {
             My blogs mostly have content around tools and technologies, tutorials, book /
             research-paper summaries, etc.
           </p>
-          <p className="mb-4 w-full rounded-lg border-2 border-green-300/50 bg-gradient-to-b from-green-900/10 from-50% to-green-300/25 p-4 text-justify text-green-300 shadow-2xl shadow-green-300/25 hover:shadow-2xl hover:shadow-green-300/25">
-            <span className="block text-xl font-semibold">
-              Introducing <span className="font-mono italic">{'<Minis/>'}</span>
-            </span>
-            <span className="mt-2 block text-secondary-foreground">
-              Sharing Byte-sized knowledge everyday for people on the go.
-            </span>
-          </p>
           <div className="flex items-center justify-end gap-2 py-2">
             <a href="https://x.com/zaCKoZAck0">
               <Button size="sm" variant="secondary" className="border border-gray-500">
@@ -97,14 +89,6 @@ export default function BlogPage() {
                           <td>
                             <H4 className="from-blue-400 to-purple-400 bg-clip-text pl-3 text-base font-semibold text-secondary-foreground group-hover:bg-gradient-to-br group-hover:text-transparent">
                               {blog.title}
-                              {blog.minis && (
-                                <span
-                                  title="minis"
-                                  className="px-2 font-mono font-normal italic text-green-300"
-                                >
-                                  {'<Minis/>'}
-                                </span>
-                              )}
                             </H4>
                           </td>
                         </tr>
